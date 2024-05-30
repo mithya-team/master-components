@@ -1,6 +1,5 @@
 {
   "name": "master-components",
-  "infra": "polyrepo",
   "scripts": {
     "build": "packemon build",
     "check": "yarn run type && yarn run test && yarn run lint",
@@ -30,7 +29,7 @@
     "typescript": "^5.4.5",
     "vitest": "^1.6.0"
   },
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "keywords": [],
   "author": "Mithyalabs",
@@ -41,12 +40,16 @@
   },
   "packemon": {
     "platform": "browser",
-    "format": "esm"
+    "format": "lib"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
-  "type": "module"
+  "type": "module",
+  "main": "./src/index.ts",
+  "files": [
+    "src/**/*"
+  ]
 }
