@@ -56,7 +56,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 		if (href && !isExternalLink && component) {
 			const CustomComponent = component as React.ElementType;
 			return (
-				<CustomComponent className={rootClass} {...rest}>
+				<CustomComponent className={rootClass} to={href} {...rest}>
 					<ButtonContent {...props} />
 				</CustomComponent>
 			);
