@@ -15,7 +15,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	href?: string;
 	isExternalLink?: boolean;
 	openInNewTab?: boolean;
-	toolTipProps?: TooltipProps;
+	tooltipprops?: TooltipProps;
 	component?: React.ElementType<any>;
 }
 
@@ -27,24 +27,24 @@ const Button: React.FC<ButtonProps> = (props) => {
 		rightIcon,
 		href,
 		isExternalLink = false,
-		toolTipProps,
+		tooltipprops,
 		component,
 		...rest
 	} = props
 	const { root = "", leftIcon: leftIconClass, rightIcon: rightIconClass, label: labelClass } = classNames;
-	const rootClass = useMemo(() => `cmp_Button_root ${root} `, [root])
+	const rootClass = useMemo(() => `button_root ${root} `, [root])
 
 	const buttonContent = useMemo(() => {
 		return (
 			<>
 				{!!leftIcon ? (
-					<div className={`cmp_Button_left-icon ${leftIconClass}`}>
+					<div className={`button_left-icon ${leftIconClass}`}>
 						{leftIcon}
 					</div>
 				) : null}
 				{!!label ? typeof (label) === "string" ? <span className={`label ${labelClass}`}>{label}</span> : label : null}
 				{!!rightIcon ? (
-					<div className={`cmp_Button_right-icon ${rightIconClass}`}>
+					<div className={`button_right-icon ${rightIconClass}`}>
 						{rightIcon}
 					</div>
 				) : null}
@@ -80,11 +80,11 @@ const Button: React.FC<ButtonProps> = (props) => {
 				{buttonContent}
 			</button>
 		)
-	}, [classNames, label, leftIcon, rightIcon, href, isExternalLink, toolTipProps, component, rest])
+	}, [classNames, label, leftIcon, rightIcon, href, isExternalLink, tooltipprops, component, rest])
 
-	if (!!toolTipProps?.content) {
+	if (!!tooltipprops?.content) {
 		return (
-			<Tooltip {...toolTipProps}>
+			<Tooltip {...tooltipprops}>
 				{comp}
 			</Tooltip>
 		)
