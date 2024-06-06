@@ -1,7 +1,7 @@
 {
   "name": "master-components",
   "scripts": {
-    "build": "packemon build",
+    "build": "packemon build --declaration --skipPrivate",
     "check": "yarn run type && yarn run test && yarn run lint",
     "clean": "packemon clean",
     "coverage": "yarn run test --coverage",
@@ -40,7 +40,7 @@
   },
   "packemon": {
     "platform": "browser",
-    "format": "lib"
+    "format": "esm"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.0",
@@ -48,8 +48,12 @@
     "react-dom": "^18.3.1"
   },
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./esm/index.js",
   "files": [
+    "esm/**/*",
+    "lib/**/*",
     "src/**/*"
-  ]
+  ],
+  "module": "./esm/index.js",
+  "types": "./esm/index.d.ts"
 }

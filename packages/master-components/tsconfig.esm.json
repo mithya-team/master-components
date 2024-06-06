@@ -2,8 +2,12 @@
 {
   "extends": "tsconfig-moon/tsconfig.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "outDir": "esm",
     "rootDir": "src"
   },
-  "include": ["src/**/*", "types/**/*"]
+  "include": [
+    "src/**/*",
+    "types/**/*"
+  ]
 }
