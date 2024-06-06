@@ -33,21 +33,21 @@ const Input: FC<InputProps> = (props) => {
     } = props;
 
     return (
-        <div className={`${className} cmp-Input_root`}>
+        <div className={`${className} input_root`}>
             {label ? (
                 <label
-                    className={`cmp-Input__label ${classNames?.label}`
+                    className={`input__label ${classNames?.label}`
                     }
                 >
                     {label}
                 </label>
             ) : null}
             <div
-                className={`cmp-Input_container ${classNames?.inputRoot}`}
+                className={`input_container ${classNames?.inputRoot}`}
             >
                 {!!startIcon ? (
                     <div
-                        className={`cmp-Input__start-icon ${classNames?.startIcon}`}
+                        className={`input__start-icon ${classNames?.startIcon}`}
                     >
                         {startIcon}
                     </div>
@@ -56,12 +56,12 @@ const Input: FC<InputProps> = (props) => {
                     disabled={disabled}
                     autoComplete="false"
                     type={type}
-                    className={`cmp-Input ${classNames?.input}`}
+                    className={`input ${classNames?.input}`}
                     {...inputProps}
                 />
                 {!!endIcon ? (
                     <div
-                        className={`cmp-Input__end-icon ${classNames?.endIcon}`}
+                        className={`input__end-icon ${classNames?.endIcon}`}
                     >
                         {endIcon}
                     </div>
@@ -69,7 +69,7 @@ const Input: FC<InputProps> = (props) => {
             </div>
             {!!error || !!helperText ? (
                 <p
-                    className={`cmp-Input__helper-text ${!!error ? classNames?.error : classNames?.helperText}`}
+                    className={`input__helper-text ${!!error ? classNames?.error : classNames?.helperText}`}
                 >
                     {error || helperText}
                 </p>
