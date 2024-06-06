@@ -36,7 +36,7 @@ const Tooltip: FC<TooltipProps> = (props) => {
         }
         const tooltipRect = tooltipElement.getBoundingClientRect();
         return getAvailablePlacement(tooltipRect, placement);
-    }, [placement])
+    }, [placement, tooltipRef])
 
     return (
         <div
