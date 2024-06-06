@@ -8,6 +8,7 @@ function App() {
   return (
     <>
       {val}
+
       <Button label="Button" tooltipprops={{ content: "this is button tooltip", placement: "top" }} />
       <div className="root">
         <Button label="button with tooltip" tooltipprops={{ content: "this is button tooltip", placement: "top" }} />

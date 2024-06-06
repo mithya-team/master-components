@@ -1,4 +1,5 @@
-import { type FC, useState, type PropsWithChildren, type CSSProperties, useRef, useMemo } from 'react';
+
+import { type FC, useState, type PropsWithChildren, type CSSProperties, useRef, useLayoutEffect } from 'react';
 import "./index.css"
 
 export type IPlacement = "top" | "bottom" | "left" | "right";
@@ -17,6 +18,7 @@ const Tooltip: FC<TooltipProps> = (props) => {
 
     const [isVisible, setIsVisible] = useState(false);
     const tooltipRef = useRef<HTMLDivElement>(null);
+    const [calculatedPlacement, setCalculatedPlacement] = useState(placement);
 
     const showTip = () => {
         timeout = setTimeout(() => {
@@ -29,14 +31,15 @@ const Tooltip: FC<TooltipProps> = (props) => {
         setIsVisible(false);
     };
 
-    const calculatedPlacement = useMemo(() => {
+    useLayoutEffect(() => {
         const tooltipElement = tooltipRef?.current;
         if (!tooltipElement) {
             return; // Tooltip not yet rendered
         }
         const tooltipRect = tooltipElement.getBoundingClientRect();
-        return getAvailablePlacement(tooltipRect, placement);
-    }, [placement, tooltipRef])
+        const newPlacement = getAvailablePlacement(tooltipRect, placement);
+        if (newPlacement !== placement) setCalculatedPlacement(newPlacement);
+    }, [placement])
 
     return (
         <div
@@ -55,41 +58,36 @@ const Tooltip: FC<TooltipProps> = (props) => {
 
 export default Tooltip;
 
+
+
 const getAvailablePlacement = (tooltipRect: DOMRect, placement: IPlacement) => {
     const { top, left, right, bottom, width, height } = tooltipRect;
     const { innerHeight, innerWidth } = window;
-    const fitsTop = height <= top;
-    const fitsBottom = height <= innerHeight - bottom;
-    const fitsLeft = width <= left;
-    const fitsRight = width <= innerWidth - right;
-    switch (placement) {
-        case 'top':
-            if (fitsTop) return 'top';
-            if (fitsBottom) return 'bottom';
-            if (fitsLeft) return 'left';
-            if (fitsRight) return 'right';
-            break;
-        case 'bottom':
-            if (fitsBottom) return 'bottom';
-            if (fitsTop) return 'top';
-            if (fitsLeft) return 'left';
-            if (fitsRight) return 'right';
-            break;
-        case 'left':
-            if (fitsLeft) return 'left';
-            if (fitsRight) return 'right';
-            if (fitsTop) return 'top';
-            if (fitsBottom) return 'bottom';
-            break;
-        case 'right':
-            if (fitsRight) return 'right';
-            if (fitsLeft) return 'left';
-            if (fitsTop) return 'top';
-            if (fitsBottom) return 'bottom';
-            break;
-        default:
-            break;
+    const fitsTop = top >= height;
+    const fitsBottom = (innerHeight - bottom) >= height;
+    const fitsLeft = left >= width;
+    const fitsRight = (innerWidth - right) >= width;
+    // If all sides fit, return the provided placement
+    if (fitsTop && fitsBottom && fitsLeft && fitsRight) {
+        return placement;
     }
 
-    return placement; // Default placement if no suitable fit is found
+    return checkPlacement(fitsTop, fitsBottom, fitsLeft, fitsRight) ?? placement;
+
+};
+
+const checkPlacement = (fitsTop: boolean, fitsBottom: boolean, fitsLeft: boolean, fitsRight: boolean): IPlacement | undefined => {
+    if (fitsBottom && fitsLeft && fitsRight) return 'bottom';
+    if (fitsTop && fitsBottom && fitsLeft) return 'left';
+    if (fitsTop && fitsBottom && fitsRight) return 'right';
+    if (fitsTop && fitsLeft && fitsRight) return 'top';
+    if (fitsBottom && fitsLeft && fitsRight) return 'bottom';
+    if (fitsTop && fitsLeft) return 'top';
+    if (fitsTop && fitsRight) return 'top';
+    if (fitsBottom && fitsLeft) return 'bottom';
+    if (fitsBottom && fitsRight) return 'right';
+    if (fitsLeft) return 'left';
+    if (fitsRight) return 'right';
+    if (fitsTop) return 'top';
+    if (fitsBottom) return 'bottom';
 };
