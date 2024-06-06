@@ -2,11 +2,15 @@
 {
   "extends": "tsconfig-moon/tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "outDir": "esm",
+    "declaration": true,
   },
   "include": [
     "packages/master-components/src/**/*",
     "tests/**/*",
     "types/**/*"
-  ]
+  ],
 }
