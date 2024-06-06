@@ -62,31 +62,30 @@ const getAvailablePlacement = (tooltipRect: DOMRect, placement: IPlacement) => {
     const fitsBottom = height <= innerHeight - bottom;
     const fitsLeft = width <= left;
     const fitsRight = width <= innerWidth - right;
-
     switch (placement) {
         case 'top':
             if (fitsTop) return 'top';
-            if (!fitsTop && fitsBottom) return 'bottom';
-            if (!fitsTop && !fitsBottom && fitsLeft) return 'left';
-            if (!fitsTop && !fitsBottom && !fitsLeft && fitsRight) return 'right';
+            if (fitsBottom) return 'bottom';
+            if (fitsLeft) return 'left';
+            if (fitsRight) return 'right';
             break;
         case 'bottom':
             if (fitsBottom) return 'bottom';
-            if (!fitsBottom && fitsTop) return 'top';
-            if (!fitsBottom && !fitsTop && fitsLeft) return 'left';
-            if (!fitsBottom && !fitsTop && !fitsLeft && fitsRight) return 'right';
+            if (fitsTop) return 'top';
+            if (fitsLeft) return 'left';
+            if (fitsRight) return 'right';
             break;
         case 'left':
             if (fitsLeft) return 'left';
-            if (!fitsLeft && fitsRight) return 'right';
-            if (!fitsLeft && !fitsRight && fitsTop) return 'top';
-            if (!fitsLeft && !fitsRight && !fitsTop && fitsBottom) return 'bottom';
+            if (fitsRight) return 'right';
+            if (fitsTop) return 'top';
+            if (fitsBottom) return 'bottom';
             break;
         case 'right':
             if (fitsRight) return 'right';
-            if (!fitsRight && fitsLeft) return 'left';
-            if (!fitsRight && !fitsLeft && fitsTop) return 'top';
-            if (!fitsRight && !fitsLeft && !fitsTop && fitsBottom) return 'bottom';
+            if (fitsLeft) return 'left';
+            if (fitsTop) return 'top';
+            if (fitsBottom) return 'bottom';
             break;
         default:
             break;
