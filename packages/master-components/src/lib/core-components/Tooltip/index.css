@@ -4,7 +4,6 @@
   position: relative;
 }
 
-/* Absolute positioning */
 .Tooltip-Tip {
   position: absolute;
   left: 50%;
@@ -14,25 +13,20 @@
   transform: 0.3s ease-in-out;
 }
 
-/* Absolute positioning */
 .Tooltip-Tip.top {
-  top: calc(100% *-1);
+  top: calc(-100%);
 }
 
-/* Absolute positioning */
 .Tooltip-Tip.right {
   left: calc(100% + 10px);
   top: 50%;
   transform: translateX(0) translateY(-50%);
 }
 
-
-/* Absolute positioning */
 .Tooltip-Tip.bottom {
   bottom: calc(100% +10px);
 }
 
-/* Absolute positioning */
 .Tooltip-Tip.left {
   left: auto;
   right: calc(100% + 10px);
