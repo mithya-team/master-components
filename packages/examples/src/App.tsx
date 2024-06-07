@@ -9,9 +9,9 @@ function App() {
     <>
       {val}
 
-      <Button label="Button" tooltipprops={{ content: "this is button tooltip", placement: "top" }} />
+      <Button label="Button" tooltipProps={{ content: "this is button tooltip", placement: "top" }} />
       <div className="root">
-        <Button label="button with tooltip" tooltipprops={{ content: "this is button tooltip", placement: "top" }} />
+        <Button label="button with tooltip" tooltipProps={{ content: "this is button tooltip", placement: "top" }} />
       </div>
       <Input value={val} onChange={(e) => setValue(e.target.value)} label="input" startIcon={<>Hii</>} endIcon={<>Hello</>} helperText="helper text" />
     </>

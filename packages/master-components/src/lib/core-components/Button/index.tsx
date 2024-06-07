@@ -14,8 +14,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	label?: ReactNode;
 	href?: string;
 	isExternalLink?: boolean;
-	openInNewTab?: boolean;
-	tooltipprops?: TooltipProps;
+	tooltipProps?: TooltipProps;
 	component?: React.ElementType<any>;
 }
 
@@ -27,7 +26,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 		rightIcon,
 		href,
 		isExternalLink = false,
-		tooltipprops,
+		tooltipProps,
 		component,
 		...rest
 	} = props
@@ -76,15 +75,15 @@ const Button: React.FC<ButtonProps> = (props) => {
 		}
 
 		return (
-			<button className={rootClass} {...props}>
+			<button className={rootClass} {...rest}>
 				{buttonContent}
 			</button>
 		)
-	}, [classNames, label, leftIcon, rightIcon, href, isExternalLink, tooltipprops, component, rest])
+	}, [classNames, label, leftIcon, rightIcon, href, isExternalLink, tooltipProps, component, rest])
 
-	if (!!tooltipprops?.content) {
+	if (!!tooltipProps?.content) {
 		return (
-			<Tooltip {...tooltipprops}>
+			<Tooltip {...tooltipProps}>
 				{comp}
 			</Tooltip>
 		)
