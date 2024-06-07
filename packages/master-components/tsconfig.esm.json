@@ -4,7 +4,9 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "outDir": "esm",
-    "rootDir": "src"
+    "rootDir": "src",
+    "lib": ["dom"],
+    "noImplicitReturns": false,
   },
   "include": [
     "src/**/*",
