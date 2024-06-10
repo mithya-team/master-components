@@ -4,7 +4,7 @@ export interface InputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
     startIcon?: React.ReactNode;
     endIcon?: React.ReactNode;
-    label?: string;
+    label?: React.ReactNode;
     error?: string | boolean;
     helperText?: string;
     classNames?: {
@@ -34,14 +34,7 @@ const Input: FC<InputProps> = (props) => {
 
     return (
         <div className={`${className} input_root`}>
-            {label ? (
-                <label
-                    className={`input__label ${classNames?.label}`
-                    }
-                >
-                    {label}
-                </label>
-            ) : null}
+            {!!label ? typeof (label) === "string" ? <label className={`input__label ${classNames?.label}`}>{label}</label> : label : null}
             <div
                 className={`input_container ${classNames?.inputRoot}`}
             >
