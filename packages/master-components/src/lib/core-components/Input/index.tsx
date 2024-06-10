@@ -1,6 +1,7 @@
 import React, { type FC } from "react";
+import "./index.css";
 
-export interface InputProps
+interface InputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
     startIcon?: React.ReactNode;
     endIcon?: React.ReactNode;
@@ -71,4 +72,6 @@ const Input: FC<InputProps> = (props) => {
     );
 };
 
-export default Input;
+
+export type { InputProps };
+export { Input };

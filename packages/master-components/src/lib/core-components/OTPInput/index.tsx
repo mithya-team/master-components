@@ -1,4 +1,4 @@
-import React, { type ReactNode, useEffect, useState } from 'react';
+import React, { type ReactNode, useEffect, useState, type FC } from 'react';
 import "./index.css";
 
 type AllowedInputTypes = 'password' | 'text' | 'number';
@@ -37,7 +37,7 @@ interface OTPInputProps extends Omit<
     inputType?: AllowedInputTypes;
 }
 
-const OTPInput = ({
+const OTPInput: FC<OTPInputProps> = ({
     value = '',
     numInputs = 4,
     onChange,
@@ -51,7 +51,7 @@ const OTPInput = ({
     helperText,
     title,
     ...inputProps
-}: OTPInputProps) => {
+}) => {
     const { container = "", input = "", separator = "" } = classNames ?? {};
     const [activeInput, setActiveInput] = useState(0);
     const inputRefs = React.useRef<Array<HTMLInputElement | null>>([]);
@@ -261,4 +261,4 @@ const OTPInput = ({
 };
 
 export type { OTPInputProps, AllowedInputTypes };
-export default OTPInput;
+export { OTPInput };

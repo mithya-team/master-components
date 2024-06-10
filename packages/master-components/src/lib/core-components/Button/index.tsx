@@ -1,6 +1,6 @@
 import React, { type ButtonHTMLAttributes, useMemo, type ReactNode } from 'react';
 import type { TooltipProps } from '../Tooltip';
-import Tooltip from '../Tooltip';
+import { Tooltip } from '../Tooltip';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	classNames?: {
@@ -92,5 +92,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 	return comp;
 };
 
-export default Button;
+export { type ButtonProps };
+export { Button };
+
 

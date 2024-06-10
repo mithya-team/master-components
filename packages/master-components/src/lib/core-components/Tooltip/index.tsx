@@ -2,9 +2,9 @@
 import { type FC, useState, type PropsWithChildren, type CSSProperties, useRef, useLayoutEffect } from 'react';
 import "./index.css"
 
-export type IPlacement = "top" | "bottom" | "left" | "right";
+type IPlacement = "top" | "bottom" | "left" | "right";
 
-export interface TooltipProps extends PropsWithChildren {
+interface TooltipProps extends PropsWithChildren {
     content: string;
     placement?: IPlacement;
     delay?: number;
@@ -56,7 +56,8 @@ const Tooltip: FC<TooltipProps> = (props) => {
     );
 };
 
-export default Tooltip;
+export type { IPlacement, TooltipProps };
+export { Tooltip };
 
 
 
