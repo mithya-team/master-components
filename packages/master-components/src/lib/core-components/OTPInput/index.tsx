@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { type ReactNode, useEffect, useState } from 'react';
 import "./index.css";
 
 type AllowedInputTypes = 'password' | 'text' | 'number';
