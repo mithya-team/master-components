@@ -1,0 +1,32 @@
+{
+  "name": "master-components",
+  "scripts": {
+    "build": "tsc",
+    "release": "node release.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "eslint": "^9.3.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  },
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "author": "Mithyalabs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mithya-team/master-components"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "./**/*"
+  ]
+}
