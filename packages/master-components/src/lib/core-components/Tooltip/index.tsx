@@ -1,5 +1,5 @@
 
-import { type FC, useState, type PropsWithChildren, type CSSProperties, useRef, useLayoutEffect } from 'react';
+import React, { useState, type PropsWithChildren, type CSSProperties, useRef, useLayoutEffect } from 'react';
 import "./index.css"
 
 type IPlacement = "top" | "bottom" | "left" | "right";
@@ -12,9 +12,9 @@ interface TooltipProps extends PropsWithChildren {
     tooltipStyle?: CSSProperties
 }
 
-const Tooltip: FC<TooltipProps> = (props) => {
+const Tooltip: React.FC<TooltipProps> = (props) => {
     const { children, content, placement = "top", delay, className = {}, tooltipStyle = {} } = props
-    let timeout: NodeJS.Timeout;
+    let timeout: number;
 
     const [isVisible, setIsVisible] = useState(false);
     const tooltipRef = useRef<HTMLDivElement>(null);
@@ -23,7 +23,7 @@ const Tooltip: FC<TooltipProps> = (props) => {
     const showTip = () => {
         timeout = setTimeout(() => {
             setIsVisible(true);
-        }, delay || 400);
+        }, delay || 400) as unknown as number;
     };
 
     const hideTip = () => {
