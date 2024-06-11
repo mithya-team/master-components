@@ -1,7 +1,0 @@
-{
-	"private": true,
-	"workspaces": [
-		"examples",
-		"master-components"
-	]
-}
