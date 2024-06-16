@@ -1,0 +1,39 @@
+.dropdown-root-container {
+  position: relative;
+  cursor: pointer;
+}
+.dropdown-trigger-container{
+  display: flex;
+  flex-direction: row;
+}
+.dropdown-item-container{
+display: flex;
+flex-direction: column;
+}
+.dropdown-item {
+  display: flex;
+  flex-direction: row;
+  top: 100%;
+  left: 0;
+  overflow-y: auto
+}
+.bottom-right{
+top:100%;
+right:0px;
+margin-Top:8px;
+}
+.bottom-left{
+  top:100%;
+  left:0px;
+  margin-top: 8px;
+}
+.top-right{
+  bottom:100%;
+  right:0px;
+  margin-top: 8px;
+}
+.top-left{
+  bottom:100%;
+  left:0px;
+  margin-top: 8px;
+}
