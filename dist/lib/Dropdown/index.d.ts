@@ -1,32 +1,23 @@
 import React, { type ReactNode } from 'react';
+import { DropdownMenuProps, DropdownMenuTriggerProps, DropdownMenuContentProps, DropdownMenuItemProps } from '@radix-ui/react-dropdown-menu';
 import './index.css';
-import { ButtonProps } from '../Button';
-type IPosition = 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
-interface IMenuItem {
+interface DropDownMenuItem extends DropdownMenuItemProps {
     id: string;
-    name: string;
-    value: string;
-    leftIcon?: ReactNode;
-    rightIcon?: ReactNode;
-    leftLabel?: string;
-    rightLabel?: string;
-}
-interface DropDownMenuItem extends ButtonProps {
-    id: string;
-    name: string;
     leftIcon?: ReactNode;
     rightIcon?: ReactNode;
     leftLabel?: string;
     rightLabel?: string;
     value?: string;
     className?: string;
+    leftContainerClass?: string;
+    rightContainerClass?: string;
+    onClick?: () => void;
 }
-interface DropdownProps {
+interface DropdownProps extends DropdownMenuProps {
     leftIcon?: ReactNode;
     rightIcon?: ReactNode;
     title?: string;
     className?: string;
-    position?: IPosition;
     classNames?: {
         leftIcon?: string;
         rightIcon?: string;
@@ -37,7 +28,12 @@ interface DropdownProps {
     selectedId?: string;
     onSelect?: (menuItem: DropDownMenuItem) => void;
     menuTitleProps?: Omit<DropDownMenuItem, 'items'>;
+    dropdownTriggerClassName?: string;
+    dropdownContentClassName?: string;
+    dropdownItemClassName?: string;
+    triggerProps?: DropdownMenuTriggerProps;
+    contentProps?: DropdownMenuContentProps;
 }
 declare const Dropdown: React.FC<DropdownProps>;
-export type { IMenuItem as IItem, DropdownProps, DropDownMenuItem };
+export type { DropdownProps, DropDownMenuItem };
 export { Dropdown };
