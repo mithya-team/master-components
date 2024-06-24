@@ -24,6 +24,7 @@
     "url": "https://github.com/mithya-team/master-components"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@vitejs/plugin-react": "^4.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

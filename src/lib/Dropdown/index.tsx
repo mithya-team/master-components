@@ -1,37 +1,37 @@
-import React, { type ReactNode, useState, useRef, useEffect } from 'react';
+import React, { type ReactNode } from 'react';
+import {
+    DropdownMenu,
+    DropdownMenuProps,
+    DropdownMenuTriggerProps,
+    DropdownMenuContentProps,
+    DropdownMenuItemProps,
+    Item,
+    Content,
+    Portal,
+    Label,
+    Trigger,
+} from '@radix-ui/react-dropdown-menu';
 import './index.css';
-import useOutsideClick from './useOutsideClick';
-import { ButtonProps } from '../Button';
 
 
-type IPosition = 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
-interface IMenuItem {
+interface DropDownMenuItem extends DropdownMenuItemProps {
     id: string;
-    name: string;
-    value: string;
-    leftIcon?: ReactNode;
-    rightIcon?: ReactNode;
-    leftLabel?: string;
-    rightLabel?: string;
-}
-
-interface DropDownMenuItem extends ButtonProps {
-    id: string;
-    name: string;
     leftIcon?: ReactNode;
     rightIcon?: ReactNode;
     leftLabel?: string;
     rightLabel?: string;
     value?: string;
     className?: string;
+    leftContainerClass?: string;
+    rightContainerClass?: string;
+    onClick?: () => void;
 }
 
-interface DropdownProps {
+interface DropdownProps extends DropdownMenuProps {
     leftIcon?: ReactNode;
     rightIcon?: ReactNode;
     title?: string;
     className?: string;
-    position?: IPosition;
     classNames?: {
         leftIcon?: string;
         rightIcon?: string;
@@ -42,6 +42,11 @@ interface DropdownProps {
     selectedId?: string;
     onSelect?: (menuItem: DropDownMenuItem) => void;
     menuTitleProps?: Omit<DropDownMenuItem, 'items'>;
+    dropdownTriggerClassName?: string;
+    dropdownContentClassName?: string;
+    dropdownItemClassName?: string;
+    triggerProps?: DropdownMenuTriggerProps;
+    contentProps?: DropdownMenuContentProps;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -54,109 +59,94 @@ const Dropdown: React.FC<DropdownProps> = ({
     onSelect,
     menuItemProps,
     menuTitleProps,
-    position = "bottom-right",
+    dropdownTriggerClassName,
+    dropdownContentClassName,
+    dropdownItemClassName,
+    triggerProps,
+    contentProps,
+    ...restProps
 }) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [selectedItem, setSelectedItem] = useState<DropDownMenuItem | undefined>(
-        selectedId ? menuItemProps?.find(item => item?.id === selectedId) : undefined
-    );
-
-    const handleChange = (item: DropDownMenuItem) => {
-        setSelectedItem(item);
-        onSelect?.(item);
-        setIsOpen(false);
-    };
-
-    useEffect(() => {
-        if (selectedId) {
-            const newSelectedItem = menuItemProps?.find(item => item?.id === selectedId);
-            newSelectedItem && setSelectedItem(newSelectedItem);
-        } else {
-            setSelectedItem(undefined);
-        }
-    }, [selectedId, menuItemProps]);
-
-    const dropdownRef = useRef<HTMLDivElement>(null);
-    useOutsideClick({
-        ref: dropdownRef,
-        handler: () => setIsOpen(false),
-    });
-
-    const handleToggle = () => {
-        setIsOpen(!isOpen);
-    };
 
     return (
-        <div className={`dropdown-root-container ${className}`} ref={dropdownRef}>
-            <div
-                className={`dropdown-trigger-container ${classNames?.root}`}
-                onClick={handleToggle}
-            >
-                {!!leftIcon && (
-                    <div className={`dropdown__left-icon ${classNames?.leftIcon}`}>
-                        {leftIcon}
-                    </div>
-                )}
-                <span className={`dropdown-title ${classNames?.title}`}>
-                    {selectedItem?.name ?? title}
-                </span>
-                {!!rightIcon && (
-                    <div className={`dropdown__right-icon ${classNames?.rightIcon}`}>
-                        {rightIcon}
-                    </div>
-                )}
-            </div>
+        <DropdownMenu {...restProps}>
+            <Trigger asChild {...triggerProps}>
+                <div
+                    className={`dropdown-trigger-container ${classNames?.root} ${dropdownTriggerClassName}`}
+                >
+                    {!!leftIcon && (
+                        <div className={`dropdown__left-icon ${classNames?.leftIcon}`}>
+                            {leftIcon}
+                        </div>
+                    )}
+                    <span className={`dropdown-title ${classNames?.title}`}>
+                        {title}
+                    </span>
+                    {!!rightIcon && (
+                        <div className={`dropdown__right-icon ${classNames?.rightIcon}`}>
+                            {rightIcon}
+                        </div>
+                    )}
+                </div>
+            </Trigger>
 
-            {isOpen && (
-                <div className={`dropdown-item-container ${position}`}>
-                    {
-                        menuTitleProps ? <DropdownMenu {...menuTitleProps} /> : null
-                    }
+            <Portal>
+                <Content
+                    className={`dropdown-item-container ${dropdownContentClassName}`}
+                    {...contentProps}
+                >
+                    {menuTitleProps ?
+                        <Label>
+                            <DropdownMenuItem {...menuTitleProps} />
+                        </Label>
+                        : null}
                     {menuItemProps?.map((menu, index) => (
-                        <DropdownMenu
+                        <DropdownMenuItem
                             key={index}
                             {...menu}
-                            onClick={() => handleChange(menu)}
+                            className={`dropdown-item ${dropdownItemClassName}`}
+                            onClick={() => onSelect?.(menu)}
                         />
                     ))}
-                </div>
-            )}
-        </div>
+                </Content>
+            </Portal>
+        </DropdownMenu>
     );
 };
 
-const DropdownMenu: React.FC<DropDownMenuItem> = ({
+const DropdownMenuItem: React.FC<DropDownMenuItem> = ({
     className,
     leftIcon,
     leftLabel,
     rightIcon,
     rightLabel,
-    name,
-    id,
-
+    leftContainerClass,
+    rightContainerClass,
+    onClick,
+    ...props
 }) => {
-
     return (
-        <div
-            key={id}
-            className={`dropdown-item ${className}`}
-        >
-            {!!leftIcon && (
-                <div className={`dropdown__left-icon`}>
-                    {leftIcon}
-                </div>
-            )}
-            {!!leftLabel && <span className="dropdown-left-label">{leftLabel}</span>}
-            <span className="dropdown-item-name">{name}</span>
-            {!!rightLabel && <span className="dropdown-right-label">{rightLabel}</span>}
-            {!!rightIcon && (
-                <div className={`dropdown__right-icon`}>
-                    {rightIcon}
-                </div>
-            )}
-        </div>
+        <Item onClick={onClick} className={`dropdown-item ${className}`} {...props}>
+            <div className={`dropdown-subitem ${leftContainerClass}`}>
+                {!!leftIcon && (
+                    <div className="dropdown__left-icon">
+                        {leftIcon}
+                    </div>
+                )}
+                {!!leftLabel && <span className="dropdown-left-label">{leftLabel}</span>}
+            </div>
+            <div className={`dropdown-subitem ${rightContainerClass}`}>
+                {!!rightLabel && <span className="dropdown-right-label">{rightLabel}</span>}
+                {!!rightIcon && (
+                    <div className="dropdown__right-icon">
+                        {rightIcon}
+                    </div>
+                )}
+            </div>
+
+
+        </Item>
     );
 };
 
-export type { IMenuItem as IItem, DropdownProps, DropDownMenuItem };
+export type { DropdownProps, DropDownMenuItem };
 export { Dropdown };

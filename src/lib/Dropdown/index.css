@@ -5,35 +5,19 @@
 .dropdown-trigger-container{
   display: flex;
   flex-direction: row;
+  cursor: pointer;
 }
 .dropdown-item-container{
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
 }
 .dropdown-item {
   display: flex;
   flex-direction: row;
-  top: 100%;
-  left: 0;
-  overflow-y: auto
+  justify-content: space-between;
 }
-.bottom-right{
-top:100%;
-right:0px;
-margin-Top:8px;
-}
-.bottom-left{
-  top:100%;
-  left:0px;
-  margin-top: 8px;
-}
-.top-right{
-  bottom:100%;
-  right:0px;
-  margin-top: 8px;
-}
-.top-left{
-  bottom:100%;
-  left:0px;
-  margin-top: 8px;
+.dropdown-subitem{
+  display: flex;
+  flex-direction: row;
 }

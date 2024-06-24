@@ -1,5 +1,4 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import React from "react";
 import "./index.css";
 const Input = (props) => {
     const { className, startIcon, endIcon, label, disabled, error, helperText, classNames, type = "text", ...inputProps } = props;

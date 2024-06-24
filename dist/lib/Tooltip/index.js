@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import "./index.css";
 const Tooltip = (props) => {
     const { children, content, placement = "top", delay, className = {}, tooltipStyle = {} } = props;
