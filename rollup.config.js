@@ -25,7 +25,7 @@ export default [
       },
     ],
     plugins: [
-      css(),
+      css({ inject: true }),
       peerDepsExternal(),
       resolve(),
       commonjs(),

@@ -51,7 +51,7 @@ interface DropdownProps extends DropdownMenuProps {
 
 const Dropdown: React.FC<DropdownProps> = ({
     title,
-    className,
+    className = "",
     leftIcon,
     rightIcon,
     classNames,
@@ -59,9 +59,9 @@ const Dropdown: React.FC<DropdownProps> = ({
     onSelect,
     menuItemProps,
     menuTitleProps,
-    dropdownTriggerClassName,
-    dropdownContentClassName,
-    dropdownItemClassName,
+    dropdownTriggerClassName = "",
+    dropdownContentClassName = "",
+    dropdownItemClassName = "",
     triggerProps,
     contentProps,
     ...restProps
@@ -69,7 +69,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
     return (
         <DropdownMenu {...restProps}>
-            <Trigger asChild {...triggerProps}>
+            <Trigger {...triggerProps}>
                 <div
                     className={`dropdown-trigger-container ${classNames?.root} ${dropdownTriggerClassName}`}
                 >
@@ -103,7 +103,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                         <DropdownMenuItem
                             key={index}
                             {...menu}
-                            className={`dropdown-item ${dropdownItemClassName}`}
+                            className={dropdownItemClassName}
                             onClick={() => onSelect?.(menu)}
                         />
                     ))}

@@ -1,5 +1,4 @@
 import React, { type PropsWithChildren } from 'react';
-import "./index.css";
 import { TooltipProps as PrimitiveTooltipProps, TooltipContentProps, TooltipArrowProps } from '@radix-ui/react-tooltip';
 type IPlacement = "top" | "bottom" | "left" | "right";
 interface TooltipProps extends PrimitiveTooltipProps {
