@@ -1,94 +1,39 @@
 
-import React, { useState, type PropsWithChildren, type CSSProperties, useRef, useLayoutEffect } from 'react';
-import "./index.css"
+import React, { type PropsWithChildren } from 'react';
+import { Provider, Root, Trigger, Portal, Content, Arrow, TooltipProps as PrimitiveTooltipProps, TooltipContentProps, TooltipArrowProps } from '@radix-ui/react-tooltip';
 
 type IPlacement = "top" | "bottom" | "left" | "right";
 
-interface TooltipProps extends PropsWithChildren {
+interface TooltipProps extends PrimitiveTooltipProps {
     content: string;
     placement?: IPlacement;
-    delay?: number;
-    className?: string;
-    tooltipStyle?: CSSProperties
+    contentProps?: TooltipContentProps;
+    hasArrow?: boolean;
+    arrowProps?: TooltipArrowProps;
+
 }
 
-const Tooltip: React.FC<TooltipProps> = (props) => {
-    const { children, content, placement = "top", delay, className = {}, tooltipStyle = {} } = props
-    let timeout: number;
+const Tooltip: React.FC<PropsWithChildren<TooltipProps>> = (props) => {
+    const { children, content, placement = "top", contentProps, hasArrow = false, arrowProps, ...restProps } = props
 
-    const [isVisible, setIsVisible] = useState(false);
-    const tooltipRef = useRef<HTMLDivElement>(null);
-    const [calculatedPlacement, setCalculatedPlacement] = useState(placement);
 
-    const showTip = () => {
-        timeout = setTimeout(() => {
-            setIsVisible(true);
-        }, delay || 400) as unknown as number;
-    };
-
-    const hideTip = () => {
-        clearInterval(timeout);
-        setIsVisible(false);
-    };
-
-    useLayoutEffect(() => {
-        const tooltipElement = tooltipRef?.current;
-        if (!tooltipElement) {
-            return; // Tooltip not yet rendered
-        }
-        const tooltipRect = tooltipElement.getBoundingClientRect();
-        const newPlacement = getAvailablePlacement(tooltipRect, placement);
-        if (newPlacement !== placement) setCalculatedPlacement(newPlacement);
-    }, [placement])
 
     return (
-        <div
-            className={`Tooltip-Wrapper ${className}`}
-            onMouseEnter={showTip}
-            onMouseLeave={hideTip}
-        >
-            {children}
-            <div ref={tooltipRef} className={`Tooltip-Tip ${calculatedPlacement}`}
-                style={{ ...tooltipStyle, opacity: isVisible ? 1 : 0 }}>
-                {content}
-            </div>
-        </div>
+        <Provider>
+            <Root {...restProps}>
+                <Trigger asChild>
+                    {children}
+                </Trigger>
+                <Portal>
+                    <Content side={placement} className="TooltipContent" {...contentProps}>
+                        {content}
+                        {hasArrow && <Arrow className="TooltipArrow" {...arrowProps} />}
+                    </Content>
+                </Portal>
+            </Root>
+        </Provider>
     );
 };
 
 export type { IPlacement, TooltipProps };
 export { Tooltip };
-
-
-
-const getAvailablePlacement = (tooltipRect: DOMRect, placement: IPlacement) => {
-    const { top, left, right, bottom, width, height } = tooltipRect;
-    const { innerHeight, innerWidth } = window;
-    const fitsTop = top >= height;
-    const fitsBottom = (innerHeight - bottom) >= height;
-    const fitsLeft = left >= width;
-    const fitsRight = (innerWidth - right) >= width;
-    // If all sides fit, return the provided placement
-    if (fitsTop && fitsBottom && fitsLeft && fitsRight) {
-        return placement;
-    }
-
-    return checkPlacement(fitsTop, fitsBottom, fitsLeft, fitsRight) ?? placement;
-
-};
-
-const checkPlacement = (fitsTop: boolean, fitsBottom: boolean, fitsLeft: boolean, fitsRight: boolean): IPlacement | undefined => {
-    if (fitsBottom && fitsLeft && fitsRight) return 'bottom';
-    if (fitsTop && fitsBottom && fitsLeft) return 'left';
-    if (fitsTop && fitsBottom && fitsRight) return 'right';
-    if (fitsTop && fitsLeft && fitsRight) return 'top';
-    if (fitsBottom && fitsLeft && fitsRight) return 'bottom';
-    if (fitsTop && fitsLeft) return 'top';
-    if (fitsTop && fitsRight) return 'top';
-    if (fitsBottom && fitsLeft) return 'bottom';
-    if (fitsBottom && fitsRight) return 'right';
-    if (fitsLeft) return 'left';
-    if (fitsRight) return 'right';
-    if (fitsTop) return 'top';
-    if (fitsBottom) return 'bottom';
-};

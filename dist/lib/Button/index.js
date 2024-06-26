@@ -1,5 +1,5 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Tooltip } from '../Tooltip';
 const Button = (props) => {
     const { classNames = {}, label, leftIcon, rightIcon, href, isExternalLink = false, tooltipProps, component, ...rest } = props;

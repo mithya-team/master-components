@@ -98,7 +98,7 @@ const OTPInput: FC<OTPInputProps> = ({
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { nativeEvent } = event;
+        const nativeEvent = event.nativeEvent as InputEvent
         const value = event.target.value;
 
         if (!isInputValueValid(value)) {
@@ -113,7 +113,7 @@ const OTPInput: FC<OTPInputProps> = ({
                 }
             }
 
-            if (nativeEvent.data === null && nativeEvent.inputType === 'deleteContentBackward') {
+            if (nativeEvent?.data === null && nativeEvent?.inputType === 'deleteContentBackward') {
                 event.preventDefault();
                 changeCodeAtFocus('');
                 focusInput(activeInput - 1);

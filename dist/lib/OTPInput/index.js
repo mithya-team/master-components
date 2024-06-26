@@ -39,7 +39,7 @@ const OTPInput = ({ value = '', numInputs = 4, onChange, onPaste, shouldAutoFocu
         }
     };
     const handleInputChange = (event) => {
-        const { nativeEvent } = event;
+        const nativeEvent = event.nativeEvent;
         const value = event.target.value;
         if (!isInputValueValid(value)) {
             // Pasting from the native autofill suggestion on a mobile device can pass
@@ -52,7 +52,7 @@ const OTPInput = ({ value = '', numInputs = 4, onChange, onPaste, shouldAutoFocu
                     focusInput(numInputs - 1);
                 }
             }
-            if (nativeEvent.data === null && nativeEvent.inputType === 'deleteContentBackward') {
+            if ((nativeEvent === null || nativeEvent === void 0 ? void 0 : nativeEvent.data) === null && (nativeEvent === null || nativeEvent === void 0 ? void 0 : nativeEvent.inputType) === 'deleteContentBackward') {
                 event.preventDefault();
                 changeCodeAtFocus('');
                 focusInput(activeInput - 1);

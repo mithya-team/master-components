@@ -1,0 +1,23 @@
+.dropdown-root-container {
+  position: relative;
+  cursor: pointer;
+}
+.dropdown-trigger-container{
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+.dropdown-item-container{
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.dropdown-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.dropdown-subitem{
+  display: flex;
+  flex-direction: row;
+}
