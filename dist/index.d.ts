@@ -109,11 +109,10 @@ declare const Dropdown: React__default.FC<DropdownProps>;
 
 type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
 type AvatarProps = {
-    fallback: string;
+    fallback: ReactNode;
     src?: string;
     alt?: string;
     className?: string;
-    icon?: ReactNode;
     style?: React__default.CSSProperties;
     onImageLoadingStatusChange?: (status: ImageLoadingStatus) => void;
     imageClassName?: string;

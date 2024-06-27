@@ -1,14 +1,13 @@
-import React, { ReactNode, useMemo, useState } from 'react';
-import "./index.css";
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import "./index.css"
 
 type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
 
 type AvatarProps = {
-    fallback: string;
+    fallback: ReactNode;
     src?: string;
     alt?: string;
     className?: string;
-    icon?: ReactNode;
     style?: React.CSSProperties;
     onImageLoadingStatusChange?: (status: ImageLoadingStatus) => void;
     imageClassName?: string;
@@ -19,44 +18,46 @@ type AvatarProps = {
 const Avatar: React.FC<AvatarProps> = ({
     fallback,
     src,
-    className,
+    className = "",
     style,
-    icon,
     onImageLoadingStatusChange,
     alt,
-    imageClassName,
-    fallbackClassName,
+    imageClassName = "",
+    fallbackClassName = "",
     fallbackCharactersToShow = 1,
 }) => {
     const [imageLoadingStatus, setImageLoadingStatus] = useState<ImageLoadingStatus>('idle');
 
-    const handleImageLoaded = () => {
-        setImageLoadingStatus('loaded');
-        onImageLoadingStatusChange?.("loaded");
+    const handleImageLoad = (status: ImageLoadingStatus) => {
+        setImageLoadingStatus(status);
+        onImageLoadingStatusChange?.(status);
     };
 
-    const handleImageError = () => {
-        setImageLoadingStatus('error');
-        onImageLoadingStatusChange?.("error");
-    };
+    useEffect(() => {
+        handleImageLoad("loading");
 
-    const displayedFallback = useMemo(() => fallback.substring(0, fallbackCharactersToShow), [fallbackCharactersToShow, fallback]);
+        return (() => {
+            handleImageLoad("idle");
+        })
+    }, [src])
+
+    const displayedFallback = useMemo(() => {
+        if (typeof fallback === 'string') {
+            return fallback.substring(0, fallbackCharactersToShow);
+        }
+        return fallback;
+    }, [fallbackCharactersToShow, fallback]);
 
     return (
         <div className={`avatar-container ${className}`} style={style}>
-            {src && imageLoadingStatus === 'loaded' ? (
-                <img
-                    src={src}
-                    alt={alt}
-                    className={`avatar-image ${imageClassName}`}
-                    onLoad={handleImageLoaded}
-                    onError={handleImageError}
-                />
-            ) : icon ?
-                icon
-                : (
-                    <div className={`avatar-fallback ${fallbackClassName}`}>{displayedFallback}</div>
-                )}
+            <img
+                src={src}
+                alt={alt}
+                className={`avatar-image ${imageLoadingStatus === "loaded" ? "loaded" : ""} ${imageClassName}`}
+                onLoad={() => handleImageLoad("loaded")}
+                onError={() => handleImageLoad("error")}
+            />
+            <div className={`avatar-fallback ${imageLoadingStatus === "loaded" ? "hide" : ""} ${fallbackClassName}`}>{displayedFallback}</div>
         </div>
     );
 };
