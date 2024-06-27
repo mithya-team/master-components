@@ -107,6 +107,20 @@ interface DropdownProps extends DropdownMenuProps {
 }
 declare const Dropdown: React__default.FC<DropdownProps>;
 
+type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
+type AvatarProps = {
+    fallback: ReactNode;
+    src?: string;
+    alt?: string;
+    className?: string;
+    style?: React__default.CSSProperties;
+    onImageLoadingStatusChange?: (status: ImageLoadingStatus) => void;
+    imageClassName?: string;
+    fallbackClassName?: string;
+    fallbackCharactersToShow?: number;
+};
+declare const Avatar: React__default.FC<AvatarProps>;
+
 type Direction = 'ltr' | 'rtl';
 type IOrientation = 'horizontal' | 'vertical';
 type SliderProps = {
@@ -126,4 +140,4 @@ type SliderProps = {
 };
 declare const Slider: React.FC<SliderProps>;
 
-export { type AllowedInputTypes, Button, type ButtonProps, type Direction, type DropDownMenuItem, Dropdown, type DropdownProps, type IOrientation, type IPlacement, Input, type InputProps, OTPInput, type OTPInputProps, Slider, type SliderProps, Tooltip, type TooltipProps };
+export { type AllowedInputTypes, Avatar, type AvatarProps, Button, type ButtonProps, type Direction, type DropDownMenuItem, Dropdown, type DropdownProps, type IOrientation, type IPlacement, type ImageLoadingStatus, Input, type InputProps, OTPInput, type OTPInputProps, Slider, type SliderProps, Tooltip, type TooltipProps };
