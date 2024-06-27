@@ -1,0 +1,22 @@
+import * as React from 'react';
+import "./slider.css";
+type Direction = 'ltr' | 'rtl';
+type IOrientation = 'horizontal' | 'vertical';
+type SliderProps = {
+    name?: string;
+    disabled?: boolean;
+    orientation?: IOrientation;
+    dir?: Direction;
+    min?: number;
+    max?: number;
+    step?: number;
+    value?: number[];
+    defaultValue?: number[];
+    onValueChange?(value: number[]): void;
+    onValueCommit?(value: number[]): void;
+    className?: string;
+    inputClassName?: string;
+};
+declare const Slider: React.FC<SliderProps>;
+export type { Direction, SliderProps, IOrientation };
+export { Slider };

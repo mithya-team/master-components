@@ -1,0 +1,22 @@
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.slider-container.horizontal {
+    flex-direction: row;
+}
+
+.slider-container.vertical {
+    flex-direction: column;
+}
+
+.slider-input {
+    position: relative;
+}
+.slider-input.vertical {
+    transform: rotate(270deg);
+    transform-origin: center;
+}
