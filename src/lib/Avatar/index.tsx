@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, useMemo, useState } from 'react';
 import "./index.css";
 
 type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
@@ -30,28 +30,28 @@ const Avatar: React.FC<AvatarProps> = ({
 }) => {
     const [imageLoadingStatus, setImageLoadingStatus] = useState<ImageLoadingStatus>('idle');
 
-    useEffect(() => {
-        if (src) {
-            setImageLoadingStatus('loading');
-            const img = new Image();
-            img.onload = () => {
-                setImageLoadingStatus('loaded');
-                onImageLoadingStatusChange?.('loaded');
-            };
-            img.onerror = () => {
-                setImageLoadingStatus('error');
-                onImageLoadingStatusChange?.('error');
-            };
-            img.src = src;
-        }
-    }, [src, onImageLoadingStatusChange]);
+    const handleImageLoaded = () => {
+        setImageLoadingStatus('loaded');
+        onImageLoadingStatusChange?.("loaded");
+    };
+
+    const handleImageError = () => {
+        setImageLoadingStatus('error');
+        onImageLoadingStatusChange?.("error");
+    };
 
     const displayedFallback = useMemo(() => fallback.substring(0, fallbackCharactersToShow), [fallbackCharactersToShow, fallback]);
 
     return (
         <div className={`avatar-container ${className}`} style={style}>
             {src && imageLoadingStatus === 'loaded' ? (
-                <img src={src} alt={alt} className={`avatar-image ${imageClassName}`} />
+                <img
+                    src={src}
+                    alt={alt}
+                    className={`avatar-image ${imageClassName}`}
+                    onLoad={handleImageLoaded}
+                    onError={handleImageError}
+                />
             ) : icon ?
                 icon
                 : (
