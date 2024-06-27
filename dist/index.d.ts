@@ -1,4 +1,5 @@
-import React, { PropsWithChildren, ButtonHTMLAttributes, ReactNode, FC } from 'react';
+import * as React from 'react';
+import React__default, { PropsWithChildren, ButtonHTMLAttributes, ReactNode, FC } from 'react';
 import { TooltipProps as TooltipProps$1, TooltipContentProps, TooltipArrowProps } from '@radix-ui/react-tooltip';
 import { DropdownMenuItemProps, DropdownMenuProps, DropdownMenuTriggerProps, DropdownMenuContentProps } from '@radix-ui/react-dropdown-menu';
 
@@ -10,7 +11,7 @@ interface TooltipProps extends TooltipProps$1 {
     hasArrow?: boolean;
     arrowProps?: TooltipArrowProps;
 }
-declare const Tooltip: React.FC<PropsWithChildren<TooltipProps>>;
+declare const Tooltip: React__default.FC<PropsWithChildren<TooltipProps>>;
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     classNames?: {
@@ -25,14 +26,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     href?: string;
     isExternalLink?: boolean;
     tooltipProps?: TooltipProps;
-    component?: React.ElementType<any>;
+    component?: React__default.ElementType<any>;
 }
-declare const Button: React.FC<ButtonProps>;
+declare const Button: React__default.FC<ButtonProps>;
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    startIcon?: React.ReactNode;
-    endIcon?: React.ReactNode;
-    label?: React.ReactNode;
+interface InputProps extends React__default.InputHTMLAttributes<HTMLInputElement> {
+    startIcon?: React__default.ReactNode;
+    endIcon?: React__default.ReactNode;
+    label?: React__default.ReactNode;
     error?: string | boolean;
     helperText?: string;
     classNames?: {
@@ -48,14 +49,14 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 declare const Input: FC<InputProps>;
 
 type AllowedInputTypes = 'password' | 'text' | 'number';
-interface OTPInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'onFocus' | 'onBlur' | 'onKeyDown' | 'onPaste' | 'autoComplete' | 'inputMode' | 'onInput' | 'title'> {
+interface OTPInputProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'onFocus' | 'onBlur' | 'onKeyDown' | 'onPaste' | 'autoComplete' | 'inputMode' | 'onInput' | 'title'> {
     value?: string;
     numInputs?: number;
     onChange: (otp: string) => void;
-    onPaste?: (event: React.ClipboardEvent<HTMLDivElement>) => void;
+    onPaste?: (event: React__default.ClipboardEvent<HTMLDivElement>) => void;
     shouldAutoFocus?: boolean;
     placeholder?: string;
-    renderSeparator?: ((index: number) => React.ReactNode) | React.ReactNode;
+    renderSeparator?: ((index: number) => React__default.ReactNode) | React__default.ReactNode;
     classNames?: {
         container?: string;
         input?: string;
@@ -104,6 +105,25 @@ interface DropdownProps extends DropdownMenuProps {
     triggerProps?: DropdownMenuTriggerProps;
     contentProps?: DropdownMenuContentProps;
 }
-declare const Dropdown: React.FC<DropdownProps>;
+declare const Dropdown: React__default.FC<DropdownProps>;
 
-export { type AllowedInputTypes, Button, type ButtonProps, type DropDownMenuItem, Dropdown, type DropdownProps, type IPlacement, Input, type InputProps, OTPInput, type OTPInputProps, Tooltip, type TooltipProps };
+type Direction = 'ltr' | 'rtl';
+type IOrientation = 'horizontal' | 'vertical';
+type SliderProps = {
+    name?: string;
+    disabled?: boolean;
+    orientation?: IOrientation;
+    dir?: Direction;
+    min?: number;
+    max?: number;
+    step?: number;
+    value?: number[];
+    defaultValue?: number[];
+    onValueChange?(value: number[]): void;
+    onValueCommit?(value: number[]): void;
+    className?: string;
+    inputClassName?: string;
+};
+declare const Slider: React.FC<SliderProps>;
+
+export { type AllowedInputTypes, Button, type ButtonProps, type Direction, type DropDownMenuItem, Dropdown, type DropdownProps, type IOrientation, type IPlacement, Input, type InputProps, OTPInput, type OTPInputProps, Slider, type SliderProps, Tooltip, type TooltipProps };
