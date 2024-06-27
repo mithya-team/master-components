@@ -106,4 +106,19 @@ interface DropdownProps extends DropdownMenuProps {
 }
 declare const Dropdown: React.FC<DropdownProps>;
 
-export { type AllowedInputTypes, Button, type ButtonProps, type DropDownMenuItem, Dropdown, type DropdownProps, type IPlacement, Input, type InputProps, OTPInput, type OTPInputProps, Tooltip, type TooltipProps };
+type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error';
+type AvatarProps = {
+    fallback: string;
+    src?: string;
+    alt?: string;
+    className?: string;
+    icon?: ReactNode;
+    style?: React.CSSProperties;
+    onImageLoadingStatusChange?: (status: ImageLoadingStatus) => void;
+    imageClassName?: string;
+    fallbackClassName?: string;
+    fallbackCharactersToShow?: number;
+};
+declare const Avatar: React.FC<AvatarProps>;
+
+export { type AllowedInputTypes, Avatar, type AvatarProps, Button, type ButtonProps, type DropDownMenuItem, Dropdown, type DropdownProps, type IPlacement, type ImageLoadingStatus, Input, type InputProps, OTPInput, type OTPInputProps, Tooltip, type TooltipProps };
