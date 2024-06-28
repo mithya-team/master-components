@@ -140,4 +140,22 @@ type SliderProps = {
 };
 declare const Slider: React.FC<SliderProps>;
 
-export { type AllowedInputTypes, Avatar, type AvatarProps, Button, type ButtonProps, type Direction, type DropDownMenuItem, Dropdown, type DropdownProps, type IOrientation, type IPlacement, type ImageLoadingStatus, Input, type InputProps, OTPInput, type OTPInputProps, Slider, type SliderProps, Tooltip, type TooltipProps };
+type AccordionProps = {
+    items: AccordionItem[];
+    openIcon?: React__default.ReactNode;
+    closeIcon?: React__default.ReactNode;
+    className?: string;
+    style?: React__default.CSSProperties;
+};
+type AccordionItem = {
+    header: React__default.ReactNode;
+    content: React__default.ReactNode;
+    openIcon?: React__default.ReactNode;
+    closeIcon?: React__default.ReactNode;
+    className?: string;
+    headerClass?: string;
+    contentClass?: string;
+};
+declare const Accordion: React__default.FC<AccordionProps>;
+
+export { Accordion, type AccordionItem, type AccordionProps, type AllowedInputTypes, Avatar, type AvatarProps, Button, type ButtonProps, type Direction, type DropDownMenuItem, Dropdown, type DropdownProps, type IOrientation, type IPlacement, type ImageLoadingStatus, Input, type InputProps, OTPInput, type OTPInputProps, Slider, type SliderProps, Tooltip, type TooltipProps };
