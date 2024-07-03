@@ -6,3 +6,4 @@ export * from "./Dropdown";
 export * from "./Avatar";
 export * from "./Slider";
 export * from "./Accordion";
+export * from "./RadioGroup";
