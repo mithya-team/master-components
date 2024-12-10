@@ -1,0 +1,11 @@
+/* Basic styles */
+.radio-group-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.radio-group-item:last-child {
+    margin-bottom: 0;
+}

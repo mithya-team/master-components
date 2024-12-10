@@ -158,4 +158,22 @@ type AccordionItem = {
 };
 declare const Accordion: React__default.FC<AccordionProps>;
 
-export { Accordion, type AccordionItem, type AccordionProps, type AllowedInputTypes, Avatar, type AvatarProps, Button, type ButtonProps, type Direction, type DropDownMenuItem, Dropdown, type DropdownProps, type IOrientation, type IPlacement, type ImageLoadingStatus, Input, type InputProps, OTPInput, type OTPInputProps, Slider, type SliderProps, Tooltip, type TooltipProps };
+interface RadioOption {
+    value: string;
+    label: React__default.ReactNode;
+    className?: string;
+    disabled?: boolean;
+}
+interface RadioGroupProps {
+    name?: string;
+    required?: boolean;
+    disabled?: boolean;
+    defaultValue?: string;
+    value?: string;
+    onChange?: (option: RadioOption) => void;
+    options: RadioOption[];
+    className?: string;
+}
+declare const RadioGroup: FC<RadioGroupProps>;
+
+export { Accordion, type AccordionItem, type AccordionProps, type AllowedInputTypes, Avatar, type AvatarProps, Button, type ButtonProps, type Direction, type DropDownMenuItem, Dropdown, type DropdownProps, type IOrientation, type IPlacement, type ImageLoadingStatus, Input, type InputProps, OTPInput, type OTPInputProps, RadioGroup, type RadioGroupProps, type RadioOption, Slider, type SliderProps, Tooltip, type TooltipProps };
